@@ -1,0 +1,4 @@
+sleep 99999 > /dev/ttyS4 &
+stty < /dev/ttyS4 115200 raw
+stty < /dev/ttyS4 -echo -echok -echoe
+stty < /dev/ttyS4 nl

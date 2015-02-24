@@ -1,0 +1,34 @@
+Port test for ci20 dev board.
+
+This software is designed to test a ci20 primary and secondary expansion ports
+The test is performed from a second ci20 board connected to the test target
+
+Run the tests by executing the following steps:
+
+1 Connect the two boards expansion ports with an IDC ribbon cables
+  Ensuring a 1 to 1 connection
+
+2 Connect the two boards serial ports for the comms (ttyS4) TX->RX & RX->TX
+
+3 Login to the test target and set the ttyS4 port (see below)
+  Start bash with io redirected to ttyS4
+
+4 Login to the testing ci20 and set the ttyS4 port
+  run the genrep.sh script
+
+
+==============================================
+Set comms serial ports on both boards with the following commands
+
+$ sleep 99999 > /dev/ttyS4 &       # keeps the port open
+$ stty < /dev/ttyS4 115200 raw
+$ stty < /dev/ttyS4 -echo -echok -echoe
+$ stty < /dev/ttyS4 nl
+
+Test the comms link with the following commands
+
+$ cat /dev/ttyS4 &
+$ echo ls > /dev/ttyS4
+
+You should see the output from the ls command which ran on the remote ci20
+After testing the comms don't forget to "kill the cat"
